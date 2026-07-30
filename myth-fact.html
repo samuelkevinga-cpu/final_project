@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Myth vs Fact card game about addiction science — shell layout for Week 5."
+    />
+    <title>Myth vs Fact | Everything about Addiction</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="index.html">Everything about <span>Addiction</span></a>
+        <nav class="site-nav" aria-label="Primary">
+          <a href="index.html">Home</a>
+          <a href="myth-fact.html">Myth vs Fact</a>
+          <a href="news.html">News</a>
+          <a href="glossary.html">Glossary</a>
+          <a href="survey.html">Self-Check</a>
+          <a href="videos.html">Videos</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main" class="page">
+      <section class="hero">
+        <h1>Myth vs Fact</h1>
+        <p>
+          An interactive card-flipping game is planned here. This week is the
+          HTML/CSS shell only.
+        </p>
+      </section>
+
+      <section class="section" aria-labelledby="cards-heading">
+        <h2 id="cards-heading">Card shells</h2>
+        <p class="lead">
+          Flip behavior, scoring, and localStorage progress arrive in Week 6.
+        </p>
+        <div class="flip-grid">
+          <article class="flip-shell" aria-label="Myth vs fact card placeholder 1">
+            Card 1 — Myth / Fact flip shell
+          </article>
+          <article class="flip-shell" aria-label="Myth vs fact card placeholder 2">
+            Card 2 — Myth / Fact flip shell
+          </article>
+          <article class="flip-shell" aria-label="Myth vs fact card placeholder 3">
+            Card 3 — Myth / Fact flip shell
+          </article>
+          <article class="flip-shell" aria-label="Myth vs fact card placeholder 4">
+            Card 4 — Myth / Fact flip shell
+          </article>
+        </div>
+      </section>
+
+      <div class="shell" style="margin-top: 1.5rem">
+        <p class="shell-label">Share (placeholder)</p>
+        <div class="placeholder-row">
+          <button type="button" class="chip" disabled>Share fact</button>
+          <button type="button" class="chip" disabled>Copy link</button>
+        </div>
+        <p>Share buttons will be wired in a later week.</p>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <p>Everything about Addiction — educational project for WDD 330.</p>
+    </footer>
+
+    <script type="module" src="js/main.js"></script>
+  </body>
+</html>
