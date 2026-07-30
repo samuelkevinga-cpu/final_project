@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Live news feed about health and psychology — shell layout for Week 5."
+    />
+    <title>News | Everything about Addiction</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body data-load-apis="true">
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="index.html">Everything about <span>Addiction</span></a>
+        <nav class="site-nav" aria-label="Primary">
+          <a href="index.html">Home</a>
+          <a href="myth-fact.html">Myth vs Fact</a>
+          <a href="news.html">News</a>
+          <a href="glossary.html">Glossary</a>
+          <a href="survey.html">Self-Check</a>
+          <a href="videos.html">Videos</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main" class="page">
+      <section class="hero">
+        <h1>News feed</h1>
+        <p>
+          Latest health and psychology articles will appear here. This week we
+          only verify that the News API request runs and logs to the console.
+        </p>
+      </section>
+
+      <section class="section" aria-labelledby="filters-heading">
+        <h2 id="filters-heading">Topic filters</h2>
+        <p class="lead">Filter buttons are placeholders for Week 6 logic.</p>
+        <div class="placeholder-row" role="group" aria-label="Topic filters">
+          <button type="button" class="chip" disabled>All</button>
+          <button type="button" class="chip" disabled>Digital addiction</button>
+          <button type="button" class="chip" disabled>Chemical addiction</button>
+          <button type="button" class="chip" disabled>Mental health</button>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="articles-heading">
+        <h2 id="articles-heading">Articles</h2>
+        <div class="media-grid" aria-label="Article placeholders">
+          <div class="media-slot">Article slot 1 — title, author, date, image</div>
+          <div class="media-slot">Article slot 2 — title, author, date, image</div>
+          <div class="media-slot">Article slot 3 — title, author, date, image</div>
+        </div>
+        <p id="api-status" role="status" aria-live="polite"></p>
+        <p class="dev-note">
+          Week 6 note: News API may fail in the browser because of CORS. We will
+          add a workaround next week so articles can render on the page.
+        </p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>Everything about Addiction — educational project for WDD 330.</p>
+    </footer>
+
+    <script type="module" src="js/main.js"></script>
+  </body>
+</html>

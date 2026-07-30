@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Anonymous self-check survey shell for personal awareness."
+    />
+    <title>Self-Check | Everything about Addiction</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="index.html">Everything about <span>Addiction</span></a>
+        <nav class="site-nav" aria-label="Primary">
+          <a href="index.html">Home</a>
+          <a href="myth-fact.html">Myth vs Fact</a>
+          <a href="news.html">News</a>
+          <a href="glossary.html">Glossary</a>
+          <a href="survey.html">Self-Check</a>
+          <a href="videos.html">Videos</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main" class="page">
+      <section class="hero">
+        <h1>Self-check survey</h1>
+        <p>
+          A quick, anonymous awareness check. Scoring and localStorage save are
+          planned for Week 6 — this is the form shell only.
+        </p>
+      </section>
+
+      <section class="section" aria-labelledby="survey-heading">
+        <h2 id="survey-heading">Survey shell</h2>
+        <form class="shell survey-shell" aria-describedby="survey-note">
+          <p class="shell-label">Anonymous · not submitted yet</p>
+
+          <fieldset>
+            <legend>1. How often do you think about cutting back screen time?</legend>
+            <label class="option"
+              ><input type="radio" name="q1" value="rarely" disabled /> Rarely</label
+            >
+            <label class="option"
+              ><input type="radio" name="q1" value="sometimes" disabled />
+              Sometimes</label
+            >
+            <label class="option"
+              ><input type="radio" name="q1" value="often" disabled /> Often</label
+            >
+          </fieldset>
+
+          <fieldset>
+            <legend>2. Do you feel informed about how addiction affects the brain?</legend>
+            <label class="option"
+              ><input type="radio" name="q2" value="no" disabled /> Not really</label
+            >
+            <label class="option"
+              ><input type="radio" name="q2" value="some" disabled /> Somewhat</label
+            >
+            <label class="option"
+              ><input type="radio" name="q2" value="yes" disabled /> Yes</label
+            >
+          </fieldset>
+
+          <fieldset>
+            <legend>3. Would you share a helpful fact with a friend?</legend>
+            <label class="option"
+              ><input type="radio" name="q3" value="maybe" disabled /> Maybe</label
+            >
+            <label class="option"
+              ><input type="radio" name="q3" value="yes" disabled /> Yes</label
+            >
+            <label class="option"
+              ><input type="radio" name="q3" value="already" disabled /> I already
+              do</label
+            >
+          </fieldset>
+
+          <button type="submit" class="btn btn-primary" disabled>
+            Save my check-in (coming Week 6)
+          </button>
+          <p id="survey-note" class="dev-note">
+            Controls are disabled on purpose for the Week 5 shell.
+          </p>
+        </form>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>Everything about Addiction — educational project for WDD 330.</p>
+    </footer>
+
+    <script type="module" src="js/main.js"></script>
+  </body>
+</html>

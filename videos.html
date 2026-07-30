@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Video hub for short addiction-science explainers — Week 5 shell."
+    />
+    <title>Videos | Everything about Addiction</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body data-load-apis="true">
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="index.html">Everything about <span>Addiction</span></a>
+        <nav class="site-nav" aria-label="Primary">
+          <a href="index.html">Home</a>
+          <a href="myth-fact.html">Myth vs Fact</a>
+          <a href="news.html">News</a>
+          <a href="glossary.html">Glossary</a>
+          <a href="survey.html">Self-Check</a>
+          <a href="videos.html">Videos</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main" class="page">
+      <section class="hero">
+        <h1>Video hub</h1>
+        <p>
+          Short expert interviews and explainer clips will load from the YouTube
+          Data API. This week we only log the API response in the console.
+        </p>
+      </section>
+
+      <section class="section" aria-labelledby="videos-heading">
+        <h2 id="videos-heading">Video slots</h2>
+        <p class="lead">Thumbnails and embeds will be rendered in Week 6.</p>
+        <div class="media-grid" aria-label="Video placeholders">
+          <div class="media-slot">Video slot 1 — title, channel, thumbnail</div>
+          <div class="media-slot">Video slot 2 — title, channel, thumbnail</div>
+          <div class="media-slot">Video slot 3 — title, channel, thumbnail</div>
+        </div>
+        <p id="api-status" role="status" aria-live="polite"></p>
+        <p class="dev-note">
+          Replace <code>YOUR_YOUTUBE_API_KEY</code> in <code>js/api.js</code>
+          after you register a key. Do not commit real keys publicly if the repo
+          is public — we can refine that in Week 6.
+        </p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>Everything about Addiction — educational project for WDD 330.</p>
+    </footer>
+
+    <script type="module" src="js/main.js"></script>
+  </body>
+</html>
