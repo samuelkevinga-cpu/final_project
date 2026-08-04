@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="Video hub for short addiction-science explainers — Week 5 shell."
+      content="Video hub for short addiction-science explainers from YouTube."
     />
     <title>Videos | Everything about Addiction</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -16,7 +16,7 @@
     />
     <link rel="stylesheet" href="css/styles.css" />
   </head>
-  <body data-load-apis="true">
+  <body>
     <a class="skip-link" href="#main">Skip to content</a>
 
     <header class="site-header">
@@ -37,24 +37,25 @@
       <section class="hero">
         <h1>Video hub</h1>
         <p>
-          Short expert interviews and explainer clips will load from the YouTube
-          Data API. This week we only log the API response in the console.
+          Short explainers and interviews loaded from the YouTube Data API, with
+          local sample videos if a key is not set yet.
         </p>
       </section>
 
       <section class="section" aria-labelledby="videos-heading">
-        <h2 id="videos-heading">Video slots</h2>
-        <p class="lead">Thumbnails and embeds will be rendered in Week 6.</p>
-        <div class="media-grid" aria-label="Video placeholders">
-          <div class="media-slot">Video slot 1 — title, channel, thumbnail</div>
-          <div class="media-slot">Video slot 2 — title, channel, thumbnail</div>
-          <div class="media-slot">Video slot 3 — title, channel, thumbnail</div>
-        </div>
-        <p id="api-status" role="status" aria-live="polite"></p>
+        <h2 id="videos-heading">Videos</h2>
+        <div
+          id="videos-grid"
+          class="media-grid"
+          aria-label="Video list"
+          aria-busy="true"
+        ></div>
+        <p id="api-status" role="status" aria-live="polite">Loading videos…</p>
         <p class="dev-note">
           Replace <code>YOUR_YOUTUBE_API_KEY</code> in <code>js/api.js</code>
-          after you register a key. Do not commit real keys publicly if the repo
-          is public — we can refine that in Week 6.
+          after you register a key. Do not commit real keys to a public repo if
+          you can avoid it — the page will use
+          <code>data/videos-fallback.json</code> until a key is present.
         </p>
       </section>
     </main>

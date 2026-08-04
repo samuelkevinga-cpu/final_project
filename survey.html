@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="Anonymous self-check survey shell for personal awareness."
+      content="Anonymous self-check survey for personal awareness about addiction science."
     />
     <title>Self-Check | Everything about Addiction</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -37,64 +37,75 @@
       <section class="hero">
         <h1>Self-check survey</h1>
         <p>
-          A quick, anonymous awareness check. Scoring and localStorage save are
-          planned for Week 6 — this is the form shell only.
+          A quick, anonymous awareness check. Your answers stay in this browser
+          with localStorage — nothing is uploaded.
         </p>
       </section>
 
       <section class="section" aria-labelledby="survey-heading">
-        <h2 id="survey-heading">Survey shell</h2>
-        <form class="shell survey-shell" aria-describedby="survey-note">
-          <p class="shell-label">Anonymous · not submitted yet</p>
+        <h2 id="survey-heading">Your check-in</h2>
+        <form
+          id="self-check-form"
+          class="shell survey-shell"
+          aria-describedby="survey-note"
+        >
+          <p class="shell-label">Anonymous · saved locally</p>
 
           <fieldset>
             <legend>1. How often do you think about cutting back screen time?</legend>
             <label class="option"
-              ><input type="radio" name="q1" value="rarely" disabled /> Rarely</label
+              ><input type="radio" name="q1" value="rarely" /> Rarely</label
             >
             <label class="option"
-              ><input type="radio" name="q1" value="sometimes" disabled />
-              Sometimes</label
+              ><input type="radio" name="q1" value="sometimes" /> Sometimes</label
             >
             <label class="option"
-              ><input type="radio" name="q1" value="often" disabled /> Often</label
+              ><input type="radio" name="q1" value="often" /> Often</label
             >
           </fieldset>
 
           <fieldset>
             <legend>2. Do you feel informed about how addiction affects the brain?</legend>
             <label class="option"
-              ><input type="radio" name="q2" value="no" disabled /> Not really</label
+              ><input type="radio" name="q2" value="no" /> Not really</label
             >
             <label class="option"
-              ><input type="radio" name="q2" value="some" disabled /> Somewhat</label
+              ><input type="radio" name="q2" value="some" /> Somewhat</label
             >
             <label class="option"
-              ><input type="radio" name="q2" value="yes" disabled /> Yes</label
+              ><input type="radio" name="q2" value="yes" /> Yes</label
             >
           </fieldset>
 
           <fieldset>
             <legend>3. Would you share a helpful fact with a friend?</legend>
             <label class="option"
-              ><input type="radio" name="q3" value="maybe" disabled /> Maybe</label
+              ><input type="radio" name="q3" value="maybe" /> Maybe</label
             >
             <label class="option"
-              ><input type="radio" name="q3" value="yes" disabled /> Yes</label
+              ><input type="radio" name="q3" value="yes" /> Yes</label
             >
             <label class="option"
-              ><input type="radio" name="q3" value="already" disabled /> I already
-              do</label
+              ><input type="radio" name="q3" value="already" /> I already do</label
             >
           </fieldset>
 
-          <button type="submit" class="btn btn-primary" disabled>
-            Save my check-in (coming Week 6)
-          </button>
+          <div class="placeholder-row">
+            <button type="submit" class="btn btn-primary">Save my check-in</button>
+            <button type="button" class="chip" id="survey-reset">Clear saved</button>
+          </div>
           <p id="survey-note" class="dev-note">
-            Controls are disabled on purpose for the Week 5 shell.
+            Answers stay on this device. Nothing is sent to a server.
           </p>
         </form>
+
+        <div
+          id="survey-result"
+          class="shell survey-result"
+          hidden
+          role="status"
+          aria-live="polite"
+        ></div>
       </section>
     </main>
 

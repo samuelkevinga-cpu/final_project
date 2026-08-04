@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="Live news feed about health and psychology — shell layout for Week 5."
+      content="Live news feed about health, psychology, and addiction science."
     />
     <title>News | Everything about Addiction</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -16,7 +16,7 @@
     />
     <link rel="stylesheet" href="css/styles.css" />
   </head>
-  <body data-load-apis="true">
+  <body>
     <a class="skip-link" href="#main">Skip to content</a>
 
     <header class="site-header">
@@ -37,33 +37,59 @@
       <section class="hero">
         <h1>News feed</h1>
         <p>
-          Latest health and psychology articles will appear here. This week we
-          only verify that the News API request runs and logs to the console.
+          Recent health and psychology articles. Live data uses News API through
+          a CORS proxy; sample articles load if the key or proxy is unavailable.
         </p>
       </section>
 
       <section class="section" aria-labelledby="filters-heading">
         <h2 id="filters-heading">Topic filters</h2>
-        <p class="lead">Filter buttons are placeholders for Week 6 logic.</p>
+        <p class="lead">Choose a topic to refresh the list.</p>
         <div class="placeholder-row" role="group" aria-label="Topic filters">
-          <button type="button" class="chip" disabled>All</button>
-          <button type="button" class="chip" disabled>Digital addiction</button>
-          <button type="button" class="chip" disabled>Chemical addiction</button>
-          <button type="button" class="chip" disabled>Mental health</button>
+          <button type="button" class="chip" data-topic="all" aria-pressed="false">
+            All
+          </button>
+          <button
+            type="button"
+            class="chip"
+            data-topic="digital"
+            aria-pressed="false"
+          >
+            Digital addiction
+          </button>
+          <button
+            type="button"
+            class="chip"
+            data-topic="chemical"
+            aria-pressed="false"
+          >
+            Chemical addiction
+          </button>
+          <button
+            type="button"
+            class="chip"
+            data-topic="mental-health"
+            aria-pressed="false"
+          >
+            Mental health
+          </button>
         </div>
       </section>
 
       <section class="section" aria-labelledby="articles-heading">
         <h2 id="articles-heading">Articles</h2>
-        <div class="media-grid" aria-label="Article placeholders">
-          <div class="media-slot">Article slot 1 — title, author, date, image</div>
-          <div class="media-slot">Article slot 2 — title, author, date, image</div>
-          <div class="media-slot">Article slot 3 — title, author, date, image</div>
-        </div>
-        <p id="api-status" role="status" aria-live="polite"></p>
+        <div
+          id="articles-grid"
+          class="media-grid"
+          aria-label="Article list"
+          aria-busy="true"
+        ></div>
+        <p id="api-status" role="status" aria-live="polite">Loading articles…</p>
         <p class="dev-note">
-          Week 6 note: News API may fail in the browser because of CORS. We will
-          add a workaround next week so articles can render on the page.
+          News API often blocks direct browser calls (CORS). This page requests
+          through <code>api.allorigins.win</code>, then falls back to
+          <code>data/news-fallback.json</code> when needed. Replace
+          <code>YOUR_NEWS_API_KEY</code> in <code>js/api.js</code> for live data.
         </p>
       </section>
     </main>

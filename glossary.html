@@ -37,52 +37,30 @@
       <section class="hero">
         <h1>Glossary</h1>
         <p>
-          Tough science terms in plain English. Starter terms live in
-          <code>data/glossary.json</code>; dynamic rendering comes later.
+          Tough science terms in plain English, loaded from
+          <code>data/glossary.json</code>.
         </p>
       </section>
 
       <section class="section" aria-labelledby="terms-heading">
-        <h2 id="terms-heading">Terms (static shell)</h2>
-        <p class="lead">
-          These sample definitions match the local JSON file for Week 5.
+        <h2 id="terms-heading">Terms</h2>
+        <p class="lead" id="glossary-status" role="status" aria-live="polite">
+          Loading glossary…
         </p>
-        <div class="shell glossary-shell">
-          <p class="shell-label">Local data preview</p>
-          <dl>
-            <dt>Addiction</dt>
-            <dd>
-              A condition where a person keeps using a substance or behavior even
-              when it causes harm, often involving changes in brain reward
-              pathways.
-            </dd>
-            <dt>Dopamine</dt>
-            <dd>
-              A brain chemical linked to motivation and reward. It helps explain
-              why some habits feel hard to stop.
-            </dd>
-            <dt>Tolerance</dt>
-            <dd>
-              Needing more of a substance or activity over time to feel the same
-              effect.
-            </dd>
-            <dt>Withdrawal</dt>
-            <dd>
-              Physical or emotional symptoms that can appear when someone
-              suddenly reduces or stops a substance or habit.
-            </dd>
-            <dt>Stigma</dt>
-            <dd>
-              Negative judgment or shame that can stop people from seeking help
-              or learning accurate information.
-            </dd>
-            <dt>Digital addiction</dt>
-            <dd>
-              A popular term for compulsive screen or app use that interferes
-              with sleep, school, work, or relationships.
-            </dd>
-          </dl>
-        </div>
+
+        <label class="search-field" for="glossary-search">
+          <span class="search-field__label">Search terms</span>
+          <input
+            id="glossary-search"
+            type="search"
+            name="glossary-search"
+            placeholder="Try dopamine, stigma…"
+            autocomplete="off"
+            disabled
+          />
+        </label>
+
+        <div id="glossary-list" class="shell glossary-shell"></div>
       </section>
     </main>
 

@@ -1,9 +1,13 @@
 /**
- * main.js — Week 5 site bootstrap
- * Marks the current nav link and optionally triggers API console loads.
+ * main.js — Week 6 site bootstrap
+ * Marks the current nav link and starts the page-specific module.
  */
 
-import { loadExternalDataToConsole } from "./api.js";
+import { initMythFactPage } from "./mythFact.js";
+import { initNewsPage } from "./news.js";
+import { initVideosPage } from "./videos.js";
+import { initGlossaryPage } from "./glossary.js";
+import { initSurveyPage } from "./survey.js";
 
 /**
  * Highlight the nav link that matches this page.
@@ -23,41 +27,36 @@ function setActiveNav() {
 }
 
 /**
- * Update a small on-page status line after console API attempts.
- * @param {HTMLElement|null} statusEl
- * @param {{ news: object|null, videos: object|null }} result
+ * @returns {string}
  */
-function updateApiStatus(statusEl, result) {
-  if (!statusEl) return;
-
-  const newsOk = Boolean(result.news);
-  const videosOk = Boolean(result.videos);
-
-  if (newsOk && videosOk) {
-    statusEl.textContent =
-      "API check: both responses logged to the browser console.";
-  } else if (!newsOk && !videosOk) {
-    statusEl.textContent =
-      "API check: requests finished with errors or placeholder keys. Open the console (F12) for details. News API CORS note is in README.";
-  } else {
-    statusEl.textContent =
-      "API check: partial success. Open the console (F12) for full JSON / errors.";
-  }
+function currentPage() {
+  return window.location.pathname.split("/").pop() || "index.html";
 }
 
 async function init() {
   setActiveNav();
 
-  const shouldLoadApis = document.body.dataset.loadApis === "true";
-  if (!shouldLoadApis) return;
+  const page = currentPage();
 
-  const statusEl = document.getElementById("api-status");
-  if (statusEl) {
-    statusEl.textContent = "API check: loading… check the browser console.";
+  switch (page) {
+    case "myth-fact.html":
+      await initMythFactPage();
+      break;
+    case "news.html":
+      await initNewsPage();
+      break;
+    case "videos.html":
+      await initVideosPage();
+      break;
+    case "glossary.html":
+      await initGlossaryPage();
+      break;
+    case "survey.html":
+      initSurveyPage();
+      break;
+    default:
+      break;
   }
-
-  const result = await loadExternalDataToConsole();
-  updateApiStatus(statusEl, result);
 }
 
 init();

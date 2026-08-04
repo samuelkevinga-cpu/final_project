@@ -8,29 +8,38 @@ https://samuelkevinga-cpu.github.io/final_project/
 **Repository:**  
 https://github.com/samuelkevinga-cpu/final_project
 
-## Week 5 goals (this commit)
+## Week 6 goals
 
-- Multi-page HTML structure (Home, Myth vs Fact, News, Glossary, Self-Check, Videos)
-- Hopeful blue/green CSS shell with Montserrat
-- ES module JS (`main.js`, `api.js`) with **placeholder API keys**
-- Console-only News API + YouTube Data API fetch attempts
-- Local starter data in `data/glossary.json`
-
-Interactive features (flip cards, filters, survey save, rendering API data on the page) are scheduled for **Week 6**.
+- Interactive Myth vs Fact flip cards with CSS animation + `localStorage` progress
+- News articles rendered on the page (topic filters, loading/error status)
+- News API **CORS workaround** via `api.allorigins.win`, plus `data/news-fallback.json`
+- YouTube videos rendered on the page, with `data/videos-fallback.json` when needed
+- Glossary built dynamically from `data/glossary.json` (with search)
+- Self-check survey enabled, scored, and saved in `localStorage`
+- Page logic split into ES modules
 
 ## Project structure
 
 ```
 index.html          Home
-myth-fact.html      Myth vs Fact shell
-news.html           News feed shell
-glossary.html       Glossary shell
-survey.html         Self-check survey shell
-videos.html         Video hub shell
-css/styles.css      Layout and graphic identity
-js/main.js          Nav + page bootstrap
-js/api.js           External API fetch helpers
-data/glossary.json  Local glossary terms
+myth-fact.html      Myth vs Fact flip cards
+news.html           News feed + filters
+glossary.html       Glossary (JSON + search)
+survey.html         Self-check survey
+videos.html         Video hub
+css/styles.css      Layout, flip cards, media cards
+js/main.js          Nav + page router
+js/api.js           News / YouTube fetch helpers
+js/mythFact.js      Flip cards module
+js/news.js          News render + filters
+js/videos.js        YouTube render
+js/glossary.js      Glossary render + search
+js/survey.js        Survey + localStorage
+js/storage.js       localStorage helpers
+data/glossary.json  Glossary terms
+data/myths.json     Myth / fact cards
+data/news-fallback.json
+data/videos-fallback.json
 ```
 
 ## How to preview locally
@@ -39,12 +48,10 @@ Because the project uses ES modules, open it with a simple local server (not `fi
 
 ```bash
 # from the project root
-python3 -m http.server 5500
+python -m http.server 5500
 ```
 
 Then visit `http://localhost:5500`.
-
-Open the browser **console (F12)** on Home, News, or Videos to see API log output.
 
 ## API keys (placeholders)
 
@@ -58,12 +65,14 @@ Register keys at:
 - [News API](https://newsapi.org/)
 - [Google Cloud / YouTube Data API](https://developers.google.com/youtube/v3)
 
-Do not paste production secrets into a public repo if you can avoid it.
+Do not paste production secrets into a public repo if you can avoid it.  
+Until keys are set, News and Videos pages still work using the local fallback JSON files.
 
-## Note for Week 6 — News API CORS
+## News API CORS (Week 6)
 
-Calling News API **directly from the browser** often fails with a **CORS** error, even with a valid key.  
-**Plan for next week:** use a small proxy, serverless function, or another course-approved approach so article JSON can load and render on the page. Until then, treat console errors from News API as expected during local/GitHub Pages testing.
+Calling News API **directly from the browser** usually fails with a **CORS** error.  
+This project requests News API through **AllOrigins** (`https://api.allorigins.win/raw?url=...`).  
+If the proxy or key fails, the UI loads `data/news-fallback.json` so the page stays usable on GitHub Pages.
 
 ## Trello
 

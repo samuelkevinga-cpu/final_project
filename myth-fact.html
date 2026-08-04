@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="Myth vs Fact card game about addiction science — shell layout for Week 5."
+      content="Myth vs Fact card game about addiction science — flip myths to reveal evidence-based facts."
     />
     <title>Myth vs Fact | Everything about Addiction</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -37,39 +37,25 @@
       <section class="hero">
         <h1>Myth vs Fact</h1>
         <p>
-          An interactive card-flipping game is planned here. This week is the
-          HTML/CSS shell only.
+          Tap a card to flip a common myth and reveal a clearer, evidence-based
+          fact. Your progress is saved in this browser.
         </p>
       </section>
 
       <section class="section" aria-labelledby="cards-heading">
-        <h2 id="cards-heading">Card shells</h2>
-        <p class="lead">
-          Flip behavior, scoring, and localStorage progress arrive in Week 6.
+        <h2 id="cards-heading">Flip the cards</h2>
+        <p class="lead" id="myth-progress" role="status" aria-live="polite">
+          Loading cards…
         </p>
-        <div class="flip-grid">
-          <article class="flip-shell" aria-label="Myth vs fact card placeholder 1">
-            Card 1 — Myth / Fact flip shell
-          </article>
-          <article class="flip-shell" aria-label="Myth vs fact card placeholder 2">
-            Card 2 — Myth / Fact flip shell
-          </article>
-          <article class="flip-shell" aria-label="Myth vs fact card placeholder 3">
-            Card 3 — Myth / Fact flip shell
-          </article>
-          <article class="flip-shell" aria-label="Myth vs fact card placeholder 4">
-            Card 4 — Myth / Fact flip shell
-          </article>
-        </div>
+        <div id="flip-grid" class="flip-grid" aria-label="Myth versus fact cards"></div>
       </section>
 
       <div class="shell" style="margin-top: 1.5rem">
-        <p class="shell-label">Share (placeholder)</p>
+        <p class="shell-label">Share</p>
         <div class="placeholder-row">
-          <button type="button" class="chip" disabled>Share fact</button>
-          <button type="button" class="chip" disabled>Copy link</button>
+          <button type="button" class="chip" id="copy-page-link">Copy link</button>
         </div>
-        <p>Share buttons will be wired in a later week.</p>
+        <p>Copy this page link to share the myth-busting activity.</p>
       </div>
     </main>
 

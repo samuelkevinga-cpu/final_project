@@ -1,0 +1,34 @@
+{
+  "cards": [
+    {
+      "id": "willpower-only",
+      "myth": "Addiction is only a lack of willpower.",
+      "fact": "Addiction involves changes in brain circuits for reward, stress, and self-control. Support and treatment matter — it is not simply a character flaw."
+    },
+    {
+      "id": "hit-bottom",
+      "myth": "People have to hit rock bottom before they can get help.",
+      "fact": "Earlier support often works better. You do not need to wait for a crisis to learn, ask questions, or seek care."
+    },
+    {
+      "id": "digital-not-real",
+      "myth": "Digital or behavioral addictions are not real because there is no substance.",
+      "fact": "Compulsive behaviors can still reinforce reward pathways and disrupt sleep, school, work, and relationships — even without a chemical."
+    },
+    {
+      "id": "relapse-failure",
+      "myth": "If someone relapses, treatment failed and they should give up.",
+      "fact": "Recovery is often non-linear. Relapse can be a signal to adjust support, not proof that change is impossible."
+    },
+    {
+      "id": "only-drugs",
+      "myth": "Addiction only means illegal drugs.",
+      "fact": "Addiction can involve alcohol, nicotine, prescription medicines, gambling, and other behaviors — patterns of harm matter more than labels."
+    },
+    {
+      "id": "talking-makes-worse",
+      "myth": "Talking about addiction with teens only encourages it.",
+      "fact": "Clear, calm, accurate information reduces stigma and helps people spot risk earlier. Silence often leaves myths unchallenged."
+    }
+  ]
+}

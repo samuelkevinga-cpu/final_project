@@ -1,0 +1,45 @@
+{
+  "kind": "youtube#searchListResponse",
+  "source": "local-fallback",
+  "items": [
+    {
+      "id": { "kind": "youtube#video", "videoId": "URozLHe6Xtk" },
+      "snippet": {
+        "title": "The Chemistry of Addiction (sample fallback)",
+        "channelTitle": "Educational fallback",
+        "description": "Fallback video entry used when the YouTube API key is missing or the request fails.",
+        "thumbnails": {
+          "medium": {
+            "url": "https://i.ytimg.com/vi/URozLHe6Xtk/mqdefault.jpg"
+          }
+        }
+      }
+    },
+    {
+      "id": { "kind": "youtube#video", "videoId": "ao8L-0nSYzg" },
+      "snippet": {
+        "title": "Understanding Addiction (sample fallback)",
+        "channelTitle": "Educational fallback",
+        "description": "Fallback video entry for local and GitHub Pages demos without a live API key.",
+        "thumbnails": {
+          "medium": {
+            "url": "https://i.ytimg.com/vi/ao8L-0nSYzg/mqdefault.jpg"
+          }
+        }
+      }
+    },
+    {
+      "id": { "kind": "youtube#video", "videoId": "C8AHq3h0fLk" },
+      "snippet": {
+        "title": "Addiction and the Brain (sample fallback)",
+        "channelTitle": "Educational fallback",
+        "description": "Fallback video entry so the Videos page still renders useful content.",
+        "thumbnails": {
+          "medium": {
+            "url": "https://i.ytimg.com/vi/C8AHq3h0fLk/mqdefault.jpg"
+          }
+        }
+      }
+    }
+  ]
+}

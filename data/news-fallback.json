@@ -1,0 +1,66 @@
+{
+  "status": "ok",
+  "source": "local-fallback",
+  "articles": [
+    {
+      "title": "How the brain's reward system shapes habit and craving",
+      "description": "A plain-language look at dopamine, cues, and why some habits feel harder to pause than others.",
+      "url": "https://www.nih.gov/news-events/nih-research-matters",
+      "urlToImage": "https://images.unsplash.com/photo-1559757175-5700dde675bc?w=640&q=80",
+      "publishedAt": "2025-11-12T10:00:00Z",
+      "author": "Educational sample",
+      "source": { "name": "Local fallback" },
+      "topic": "mental-health"
+    },
+    {
+      "title": "Screen time, sleep, and compulsive app use",
+      "description": "Researchers continue to study how notifications and late-night scrolling affect attention and rest.",
+      "url": "https://www.cdc.gov/sleep/",
+      "urlToImage": "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=640&q=80",
+      "publishedAt": "2025-10-03T14:30:00Z",
+      "author": "Educational sample",
+      "source": { "name": "Local fallback" },
+      "topic": "digital"
+    },
+    {
+      "title": "Substance use: what recovery support can look like",
+      "description": "Evidence-based care often combines medical, behavioral, and community supports — not willpower alone.",
+      "url": "https://www.samhsa.gov/",
+      "urlToImage": "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=640&q=80",
+      "publishedAt": "2025-09-18T09:15:00Z",
+      "author": "Educational sample",
+      "source": { "name": "Local fallback" },
+      "topic": "chemical"
+    },
+    {
+      "title": "Reducing stigma helps people ask for help sooner",
+      "description": "Shame can delay care. Accurate language and open conversation make learning safer.",
+      "url": "https://www.who.int/health-topics/mental-health",
+      "urlToImage": "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=640&q=80",
+      "publishedAt": "2025-08-22T16:00:00Z",
+      "author": "Educational sample",
+      "source": { "name": "Local fallback" },
+      "topic": "mental-health"
+    },
+    {
+      "title": "Why digital habits can feel addictive",
+      "description": "Design patterns, social feedback, and reward loops help explain compulsive checking — and how to set boundaries.",
+      "url": "https://www.apa.org/topics/social-media-internet",
+      "urlToImage": "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=640&q=80",
+      "publishedAt": "2025-07-09T11:45:00Z",
+      "author": "Educational sample",
+      "source": { "name": "Local fallback" },
+      "topic": "digital"
+    },
+    {
+      "title": "Alcohol and the brain: tolerance over time",
+      "description": "Tolerance means needing more for the same effect — one reason patterns of use can escalate gradually.",
+      "url": "https://www.niaaa.nih.gov/",
+      "urlToImage": "https://images.unsplash.com/photo-1505751172876-fa1923c5c528?w=640&q=80",
+      "publishedAt": "2025-06-01T08:20:00Z",
+      "author": "Educational sample",
+      "source": { "name": "Local fallback" },
+      "topic": "chemical"
+    }
+  ]
+}
