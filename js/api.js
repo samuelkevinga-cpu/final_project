@@ -1,40 +1,22 @@
 /**
- * api.js — News API (CORS proxy + fallback) and YouTube Data API helpers.
- *
- * Keys can be set in this file, or saved in the browser:
- *   localStorage.setItem("eaa-news-api-key", "YOUR_KEY")
- *   localStorage.setItem("eaa-youtube-api-key", "YOUR_KEY")
- *
- * News API blocks most browser origins (CORS). Flow:
- * 1) Request through a public CORS proxy
- * 2) If that fails (or keys are missing), load local fallback JSON
+ * api.js — News (Cloudflare Worker + fallback) and YouTube Data API helpers.
  */
 
-/** @type {string} Optional hardcoded News API key (prefer localStorage on public repos). */
-export const NEWS_API_KEY = "95d49816b93b4e50b106dc9b733f657a";
-
-/** @type {string} Optional hardcoded YouTube Data API key. */
+/** @type {string} YouTube Data API key. */
 export const YOUTUBE_API_KEY = "AIzaSyAsMiSF6rGofVYABX_-MIbctOAkGIAeHlc";
 
-const NEWS_KEY_STORAGE = "eaa-news-api-key";
+/** Cloudflare Worker URL for News (no trailing slash). */
+export const NEWS_PROXY_URL = "https://finalproject.kpachecogarcia.workers.dev";
+
 const YOUTUBE_KEY_STORAGE = "eaa-youtube-api-key";
-
-/** Public read-through proxy so browser pages can reach newsapi.org */
-const CORS_PROXY = "https://api.allorigins.win/raw?url=";
-
-const TOPIC_QUERIES = {
-  all: "addiction OR psychology health",
-  digital: "digital addiction OR screen addiction OR internet addiction",
-  chemical: "substance addiction OR drug addiction OR alcohol addiction",
-  "mental-health": "mental health addiction OR addiction recovery psychology",
-};
+const NEWS_PROXY_STORAGE = "eaa-news-proxy-url";
 
 /**
  * @param {string} storageKey
  * @param {string} fallback
  * @returns {string}
  */
-function resolveApiKey(storageKey, fallback) {
+function resolveStoredValue(storageKey, fallback) {
   try {
     const stored = localStorage.getItem(storageKey);
     if (stored && stored.trim()) return stored.trim();
@@ -47,33 +29,15 @@ function resolveApiKey(storageKey, fallback) {
 /**
  * @returns {string}
  */
-function getNewsKey() {
-  return resolveApiKey(NEWS_KEY_STORAGE, NEWS_API_KEY);
-}
-
-/**
- * @returns {string}
- */
 function getYouTubeKey() {
-  return resolveApiKey(YOUTUBE_KEY_STORAGE, YOUTUBE_API_KEY);
+  return resolveStoredValue(YOUTUBE_KEY_STORAGE, YOUTUBE_API_KEY);
 }
 
 /**
- * @param {string} topic
  * @returns {string}
  */
-function newsQueryForTopic(topic) {
-  return TOPIC_QUERIES[topic] ?? TOPIC_QUERIES.all;
-}
-
-/**
- * @param {string} targetUrl
- * @returns {Promise<Response>}
- */
-async function fetchViaCorsProxy(targetUrl) {
-  const proxied = `${CORS_PROXY}${encodeURIComponent(targetUrl)}`;
-  console.log("[api] Fetching via CORS proxy…");
-  return fetch(proxied);
+function getNewsProxyUrl() {
+  return resolveStoredValue(NEWS_PROXY_STORAGE, NEWS_PROXY_URL).replace(/\/$/, "");
 }
 
 /**
@@ -109,52 +73,79 @@ export async function fetchVideosFallback() {
 }
 
 /**
- * Fetch news articles for a topic. Uses proxy + fallback.
- * @param {string} [topic="all"]
- * @returns {Promise<{ data: object|null, source: "api"|"fallback", error?: string }>}
+ * Fetch news through the Cloudflare Worker proxy.
+ * @param {string} topic
+ * @param {string} proxyBase
+ * @returns {Promise<object>}
  */
-export async function fetchNewsArticles(topic = "all") {
-  const apiKey = getNewsKey();
-  const query = encodeURIComponent(newsQueryForTopic(topic));
-  const endpoint = `https://newsapi.org/v2/everything?q=${query}&language=en&pageSize=6&sortBy=publishedAt&apiKey=${apiKey}`;
+async function fetchNewsViaWorker(topic, proxyBase) {
+  const url = `${proxyBase}/?topic=${encodeURIComponent(topic)}&pageSize=6`;
+  console.log("[api] Fetching News via Worker…", proxyBase);
 
-  if (!isConfiguredKey(apiKey)) {
-    console.warn("[api] News API key missing — using local fallback.");
-    try {
-      const data = await fetchNewsFallback();
-      return { data, source: "fallback", error: "Missing News API key" };
-    } catch (error) {
-      console.error("[api] Fallback news failed:", error);
-      return { data: null, source: "fallback", error: String(error) };
-    }
-  }
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 12000);
 
   try {
-    // Direct browser calls to News API usually fail CORS on GitHub Pages.
-    const response = await fetchViaCorsProxy(endpoint);
-    console.log("[api] News proxy status:", response.status, response.statusText);
+    const response = await fetch(url, { signal: controller.signal });
+    console.log("[api] News worker status:", response.status, response.statusText);
 
     if (!response.ok) {
       const errorBody = await response.text();
-      console.error("[api] News API error body:", errorBody);
-      throw new Error(`News API HTTP ${response.status}`);
+      console.error("[api] News worker error body:", errorBody);
+      throw new Error(`News worker HTTP ${response.status}`);
     }
 
     const data = await response.json();
     if (!data.articles?.length) {
-      throw new Error("News API returned no articles");
+      throw new Error(data.message || "News worker returned no articles");
     }
 
-    console.log("[api] News API article count:", data.articles.length);
-    return { data, source: "api" };
-  } catch (error) {
-    console.error("[api] News fetch failed — using fallback:", error);
+    console.log("[api] News article count:", data.articles.length);
+    return data;
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+/**
+ * Fetch news articles for a topic. Uses Worker proxy + fallback.
+ * @param {string} [topic="all"]
+ * @returns {Promise<{ data: object|null, source: "api"|"fallback", error?: string }>}
+ */
+export async function fetchNewsArticles(topic = "all") {
+  const proxyBase = getNewsProxyUrl();
+
+  if (proxyBase) {
     try {
-      const data = await fetchNewsFallback();
-      return { data, source: "fallback", error: String(error.message || error) };
-    } catch (fallbackError) {
-      return { data: null, source: "fallback", error: String(fallbackError) };
+      const data = await fetchNewsViaWorker(topic, proxyBase);
+      return { data, source: "api" };
+    } catch (error) {
+      console.error("[api] News worker failed — using fallback:", error);
+      try {
+        const data = await fetchNewsFallback();
+        return {
+          data,
+          source: "fallback",
+          error: String(error.message || error),
+        };
+      } catch (fallbackError) {
+        return { data: null, source: "fallback", error: String(fallbackError) };
+      }
     }
+  }
+
+  console.warn(
+    "[api] NEWS_PROXY_URL is empty. Using local fallback."
+  );
+  try {
+    const data = await fetchNewsFallback();
+    return {
+      data,
+      source: "fallback",
+      error: "NEWS_PROXY_URL not set",
+    };
+  } catch (error) {
+    return { data: null, source: "fallback", error: String(error) };
   }
 }
 

@@ -9,7 +9,7 @@ Educational web app for **WDD 330** — clear facts, myth-busting, and hopeful l
 ## Features
 
 - **Myth vs Fact** — flip cards with CSS animation and progress saved in `localStorage`
-- **News** — topic filters + News API (CORS proxy) with curated local fallback
+- **News** — topic filters + News API via Cloudflare Worker, with curated local fallback
 - **Videos** — YouTube Data API results with local fallback samples
 - **Glossary** — terms loaded from JSON with search
 - **Self-Check** — anonymous survey scored and saved on-device
