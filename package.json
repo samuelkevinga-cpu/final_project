@@ -1,0 +1,13 @@
+{
+  "name": "everything-about-addiction",
+  "private": true,
+  "version": "1.0.0",
+  "description": "WDD 330 final project — Everything about Addiction",
+  "scripts": {
+    "lint": "eslint js/**/*.js"
+  },
+  "devDependencies": {
+    "eslint": "^9.22.0"
+  },
+  "type": "module"
+}

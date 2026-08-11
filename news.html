@@ -3,6 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#3d8ea8" />
+    <meta name="author" content="WDD 330 — Everything about Addiction" />
     <meta
       name="description"
       content="Live news feed about health, psychology, and addiction science."
@@ -37,15 +39,15 @@
       <section class="hero">
         <h1>News feed</h1>
         <p>
-          Recent health and psychology articles. Live data uses News API through
-          a CORS proxy; sample articles load if the key or proxy is unavailable.
+          Recent health and psychology articles about addiction science,
+          digital habits, and mental health.
         </p>
       </section>
 
       <section class="section" aria-labelledby="filters-heading">
         <h2 id="filters-heading">Topic filters</h2>
         <p class="lead">Choose a topic to refresh the list.</p>
-        <div class="placeholder-row" role="group" aria-label="Topic filters">
+        <div class="action-row" role="group" aria-label="Topic filters">
           <button type="button" class="chip" data-topic="all" aria-pressed="false">
             All
           </button>
@@ -85,12 +87,6 @@
           aria-busy="true"
         ></div>
         <p id="api-status" role="status" aria-live="polite">Loading articles…</p>
-        <p class="dev-note">
-          News API often blocks direct browser calls (CORS). This page requests
-          through <code>api.allorigins.win</code>, then falls back to
-          <code>data/news-fallback.json</code> when needed. Replace
-          <code>YOUR_NEWS_API_KEY</code> in <code>js/api.js</code> for live data.
-        </p>
       </section>
     </main>
 

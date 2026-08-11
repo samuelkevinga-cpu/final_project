@@ -1,0 +1,42 @@
+/** @type {import("eslint").Linter.Config[]} */
+export default [
+  {
+    files: ["js/**/*.js"],
+    languageOptions: {
+      ecmaVersion: "latest",
+      sourceType: "module",
+      globals: {
+        window: "readonly",
+        document: "readonly",
+        localStorage: "readonly",
+        fetch: "readonly",
+        console: "readonly",
+        FormData: "readonly",
+        HTMLFormElement: "readonly",
+        HTMLElement: "readonly",
+        HTMLInputElement: "readonly",
+        navigator: "readonly",
+        setTimeout: "readonly",
+        URL: "readonly",
+        Date: "readonly",
+        Object: "readonly",
+        String: "readonly",
+        Number: "readonly",
+        Boolean: "readonly",
+        Array: "readonly",
+        JSON: "readonly",
+        Error: "readonly",
+        Promise: "readonly",
+        Math: "readonly",
+      },
+    },
+    rules: {
+      "no-unused-vars": ["error", { argsIgnorePattern: "^_" }],
+      "no-undef": "error",
+      "no-var": "error",
+      "prefer-const": "error",
+      eqeqeq: ["error", "always"],
+      "no-console": "off",
+    },
+  },
+];

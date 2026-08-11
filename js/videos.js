@@ -76,10 +76,10 @@ export async function initVideosPage() {
   if (!statusEl) return;
 
   if (!result.data) {
-    statusEl.textContent = `Could not load videos. ${result.error || ""}`.trim();
+    statusEl.textContent = "Could not load videos right now. Please try again later.";
   } else if (result.source === "api") {
-    statusEl.textContent = `Showing ${items.length} video${items.length === 1 ? "" : "s"} from YouTube Data API.`;
+    statusEl.textContent = `Showing ${items.length} video${items.length === 1 ? "" : "s"}.`;
   } else {
-    statusEl.textContent = `Showing ${items.length} sample video${items.length === 1 ? "" : "s"} from local fallback. Add a YouTube API key in js/api.js for live results.`;
+    statusEl.textContent = `Showing ${items.length} curated sample video${items.length === 1 ? "" : "s"}.`;
   }
 }

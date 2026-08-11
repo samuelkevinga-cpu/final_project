@@ -2,43 +2,49 @@
  * survey.js — Self-check survey with scoring + localStorage restore.
  */
 
+import { escapeHtml } from "./dom.js";
 import { readJson, writeJson } from "./storage.js";
 
 const STORAGE_KEY = "eaa-self-check";
 
-const SCORE_MAP = {
-  q1: { rarely: 1, sometimes: 2, often: 3 },
-  q2: { no: 1, some: 2, yes: 3 },
-  q3: { maybe: 1, yes: 2, already: 3 },
-};
-
 /**
- * @param {Record<string, string>} answers
- * @returns {{ total: number, max: number, message: string }}
+ * Scores anonymous self-check answers and builds feedback copy.
  */
-function scoreAnswers(answers) {
-  let total = 0;
-  let max = 0;
+export class SelfCheckScorer {
+  static SCORE_MAP = {
+    q1: { rarely: 1, sometimes: 2, often: 3 },
+    q2: { no: 1, some: 2, yes: 3 },
+    q3: { maybe: 1, yes: 2, already: 3 },
+  };
 
-  Object.entries(SCORE_MAP).forEach(([key, map]) => {
-    max += 3;
-    total += map[answers[key]] ?? 0;
-  });
+  /**
+   * @param {Record<string, string>} answers
+   * @returns {{ total: number, max: number, message: string }}
+   */
+  score(answers) {
+    let total = 0;
+    let max = 0;
 
-  let message =
-    "Thanks for checking in. Keep exploring the glossary and myth cards when you want clearer language.";
-  if (total >= 8) {
-    message =
-      "You already show strong awareness and willingness to share accurate info. Keep using trusted sources.";
-  } else if (total >= 5) {
-    message =
-      "You are building awareness. A few more facts and conversations can make the science feel clearer.";
-  } else {
-    message =
-      "This is a gentle starting point. Browse Myth vs Fact and the glossary for short, stigma-free explanations.";
+    Object.entries(SelfCheckScorer.SCORE_MAP).forEach(([key, map]) => {
+      max += 3;
+      total += map[answers[key]] ?? 0;
+    });
+
+    let message =
+      "Thanks for checking in. Keep exploring the glossary and myth cards when you want clearer language.";
+    if (total >= 8) {
+      message =
+        "You already show strong awareness and willingness to share accurate info. Keep using trusted sources.";
+    } else if (total >= 5) {
+      message =
+        "You are building awareness. A few more facts and conversations can make the science feel clearer.";
+    } else {
+      message =
+        "This is a gentle starting point. Browse Myth vs Fact and the glossary for short, stigma-free explanations.";
+    }
+
+    return { total, max, message };
   }
-
-  return { total, max, message };
 }
 
 /**
@@ -65,8 +71,8 @@ function showResult(resultEl, result) {
   resultEl.innerHTML = `
     <p class="shell-label">Your check-in</p>
     <p><strong>Awareness score:</strong> ${result.total} / ${result.max}</p>
-    <p>${result.message}</p>
-    <p class="media-card__meta">Stored only in this browser (localStorage).${when}</p>
+    <p>${escapeHtml(result.message)}</p>
+    <p class="media-card__meta">Stored only in this browser (localStorage).${escapeHtml(when)}</p>
   `;
 }
 
@@ -78,6 +84,7 @@ export function initSurveyPage() {
   const form = document.getElementById("self-check-form");
   const resultEl = document.getElementById("survey-result");
   const note = document.getElementById("survey-note");
+  const scorer = new SelfCheckScorer();
   if (!(form instanceof HTMLFormElement)) return;
 
   form.querySelectorAll("input, button").forEach((el) => {
@@ -114,7 +121,7 @@ export function initSurveyPage() {
       return;
     }
 
-    const scored = scoreAnswers(answers);
+    const scored = scorer.score(answers);
     const payload = {
       answers,
       ...scored,

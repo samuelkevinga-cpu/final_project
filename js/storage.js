@@ -1,5 +1,5 @@
 /**
- * storage.js — small localStorage helpers for Week 6 features.
+ * storage.js — small localStorage helpers.
  */
 
 /**

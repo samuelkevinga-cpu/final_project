@@ -1,17 +1,23 @@
 /**
- * api.js — Week 6
- * News API (with CORS proxy + local fallback) and YouTube Data API helpers.
+ * api.js — News API (CORS proxy + fallback) and YouTube Data API helpers.
+ *
+ * Keys can be set in this file, or saved in the browser:
+ *   localStorage.setItem("eaa-news-api-key", "YOUR_KEY")
+ *   localStorage.setItem("eaa-youtube-api-key", "YOUR_KEY")
  *
  * News API blocks most browser origins (CORS). Flow:
- * 1) Try a public CORS proxy around the News API URL
- * 2) If that fails (or keys are placeholders), load data/news-fallback.json
+ * 1) Request through a public CORS proxy
+ * 2) If that fails (or keys are missing), load local fallback JSON
  */
 
-/** @type {string} Replace with your News API key (do not commit real keys). */
-export const NEWS_API_KEY = "YOUR_NEWS_API_KEY";
+/** @type {string} Optional hardcoded News API key (prefer localStorage on public repos). */
+export const NEWS_API_KEY = "95d49816b93b4e50b106dc9b733f657a";
 
-/** @type {string} Replace with your YouTube Data API key (do not commit real keys). */
-export const YOUTUBE_API_KEY = "YOUR_YOUTUBE_API_KEY";
+/** @type {string} Optional hardcoded YouTube Data API key. */
+export const YOUTUBE_API_KEY = "AIzaSyAsMiSF6rGofVYABX_-MIbctOAkGIAeHlc";
+
+const NEWS_KEY_STORAGE = "eaa-news-api-key";
+const YOUTUBE_KEY_STORAGE = "eaa-youtube-api-key";
 
 /** Public read-through proxy so browser pages can reach newsapi.org */
 const CORS_PROXY = "https://api.allorigins.win/raw?url=";
@@ -22,6 +28,35 @@ const TOPIC_QUERIES = {
   chemical: "substance addiction OR drug addiction OR alcohol addiction",
   "mental-health": "mental health addiction OR addiction recovery psychology",
 };
+
+/**
+ * @param {string} storageKey
+ * @param {string} fallback
+ * @returns {string}
+ */
+function resolveApiKey(storageKey, fallback) {
+  try {
+    const stored = localStorage.getItem(storageKey);
+    if (stored && stored.trim()) return stored.trim();
+  } catch {
+    // localStorage may be blocked in some privacy modes
+  }
+  return fallback;
+}
+
+/**
+ * @returns {string}
+ */
+function getNewsKey() {
+  return resolveApiKey(NEWS_KEY_STORAGE, NEWS_API_KEY);
+}
+
+/**
+ * @returns {string}
+ */
+function getYouTubeKey() {
+  return resolveApiKey(YOUTUBE_KEY_STORAGE, YOUTUBE_API_KEY);
+}
 
 /**
  * @param {string} topic
@@ -42,17 +77,11 @@ async function fetchViaCorsProxy(targetUrl) {
 }
 
 /**
+ * @param {string} key
  * @returns {boolean}
  */
-function hasNewsKey() {
-  return Boolean(NEWS_API_KEY) && NEWS_API_KEY !== "YOUR_NEWS_API_KEY";
-}
-
-/**
- * @returns {boolean}
- */
-function hasYouTubeKey() {
-  return Boolean(YOUTUBE_API_KEY) && YOUTUBE_API_KEY !== "YOUR_YOUTUBE_API_KEY";
+function isConfiguredKey(key) {
+  return Boolean(key) && key !== "YOUR_NEWS_API_KEY" && key !== "YOUR_YOUTUBE_API_KEY";
 }
 
 /**
@@ -85,14 +114,15 @@ export async function fetchVideosFallback() {
  * @returns {Promise<{ data: object|null, source: "api"|"fallback", error?: string }>}
  */
 export async function fetchNewsArticles(topic = "all") {
+  const apiKey = getNewsKey();
   const query = encodeURIComponent(newsQueryForTopic(topic));
-  const endpoint = `https://newsapi.org/v2/everything?q=${query}&language=en&pageSize=6&sortBy=publishedAt&apiKey=${NEWS_API_KEY}`;
+  const endpoint = `https://newsapi.org/v2/everything?q=${query}&language=en&pageSize=6&sortBy=publishedAt&apiKey=${apiKey}`;
 
-  if (!hasNewsKey()) {
-    console.warn("[api] News API key is a placeholder — using local fallback.");
+  if (!isConfiguredKey(apiKey)) {
+    console.warn("[api] News API key missing — using local fallback.");
     try {
       const data = await fetchNewsFallback();
-      return { data, source: "fallback", error: "Placeholder News API key" };
+      return { data, source: "fallback", error: "Missing News API key" };
     } catch (error) {
       console.error("[api] Fallback news failed:", error);
       return { data: null, source: "fallback", error: String(error) };
@@ -101,7 +131,6 @@ export async function fetchNewsArticles(topic = "all") {
 
   try {
     // Direct browser calls to News API usually fail CORS on GitHub Pages.
-    // We go straight to the proxy for a consistent Week 6 path.
     const response = await fetchViaCorsProxy(endpoint);
     console.log("[api] News proxy status:", response.status, response.statusText);
 
@@ -135,23 +164,21 @@ export async function fetchNewsArticles(topic = "all") {
  * @returns {Promise<{ data: object|null, source: "api"|"fallback", error?: string }>}
  */
 export async function fetchYouTubeVideos(query = "addiction science explained") {
-  const endpoint = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=6&type=video&q=${encodeURIComponent(query)}&key=${YOUTUBE_API_KEY}`;
+  const apiKey = getYouTubeKey();
+  const endpoint = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=6&type=video&q=${encodeURIComponent(query)}&key=${apiKey}`;
 
-  if (!hasYouTubeKey()) {
-    console.warn("[api] YouTube API key is a placeholder — using local fallback.");
+  if (!isConfiguredKey(apiKey)) {
+    console.warn("[api] YouTube API key missing — using local fallback.");
     try {
       const data = await fetchVideosFallback();
-      return { data, source: "fallback", error: "Placeholder YouTube API key" };
+      return { data, source: "fallback", error: "Missing YouTube API key" };
     } catch (error) {
       return { data: null, source: "fallback", error: String(error) };
     }
   }
 
   try {
-    console.log(
-      "[api] Fetching YouTube Data API…",
-      endpoint.replace(YOUTUBE_API_KEY, "***")
-    );
+    console.log("[api] Fetching YouTube Data API…", endpoint.replace(apiKey, "***"));
     const response = await fetch(endpoint);
     console.log("[api] YouTube status:", response.status, response.statusText);
 

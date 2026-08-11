@@ -3,6 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#3d8ea8" />
+    <meta name="author" content="WDD 330 — Everything about Addiction" />
     <meta
       name="description"
       content="Video hub for short addiction-science explainers from YouTube."
@@ -37,8 +39,8 @@
       <section class="hero">
         <h1>Video hub</h1>
         <p>
-          Short explainers and interviews loaded from the YouTube Data API, with
-          local sample videos if a key is not set yet.
+          Short explainers and interviews about addiction science and recovery
+          support.
         </p>
       </section>
 
@@ -51,12 +53,6 @@
           aria-busy="true"
         ></div>
         <p id="api-status" role="status" aria-live="polite">Loading videos…</p>
-        <p class="dev-note">
-          Replace <code>YOUR_YOUTUBE_API_KEY</code> in <code>js/api.js</code>
-          after you register a key. Do not commit real keys to a public repo if
-          you can avoid it — the page will use
-          <code>data/videos-fallback.json</code> until a key is present.
-        </p>
       </section>
     </main>
 

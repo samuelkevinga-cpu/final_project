@@ -74,7 +74,7 @@ function renderArticles(grid, articles) {
   grid.replaceChildren();
   if (!articles.length) {
     const empty = document.createElement("p");
-    empty.className = "dev-note";
+    empty.className = "note";
     empty.textContent = "No articles matched this filter. Try another topic.";
     grid.appendChild(empty);
     return;
@@ -126,12 +126,12 @@ export async function initNewsPage() {
     if (result.source === "api") {
       setStatus(
         statusEl,
-        `Showing ${visible.length} live article${visible.length === 1 ? "" : "s"} (News API via CORS proxy).`
+        `Showing ${visible.length} live article${visible.length === 1 ? "" : "s"}.`
       );
     } else {
       setStatus(
         statusEl,
-        `Showing ${visible.length} sample article${visible.length === 1 ? "" : "s"} from local fallback. Add a News API key in js/api.js for live data. ${result.error ? `(${result.error})` : ""}`.trim()
+        `Showing ${visible.length} curated sample article${visible.length === 1 ? "" : "s"}.`
       );
     }
   }
@@ -156,8 +156,5 @@ export async function initNewsPage() {
     }
   }
 
-  await loadTopic(activeTopic);
-
-  // silence unused lint-style warnings in some editors
-  void lastSource;
+  await loadTopic("all");
 }

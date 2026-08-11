@@ -58,14 +58,13 @@ export async function initGlossaryPage() {
           );
       renderTerms(mount, filtered);
       if (status) {
-        status.textContent = `Showing ${filtered.length} of ${allTerms.length} terms from local JSON.`;
+        status.textContent = `Showing ${filtered.length} of ${allTerms.length} terms.`;
       }
     };
 
     applyFilter("");
 
     if (search) {
-      search.disabled = false;
       search.addEventListener("input", () => applyFilter(search.value));
     }
   } catch (error) {

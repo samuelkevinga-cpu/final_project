@@ -1,5 +1,5 @@
 /**
- * main.js — Week 6 site bootstrap
+ * main.js — site bootstrap
  * Marks the current nav link and starts the page-specific module.
  */
 
